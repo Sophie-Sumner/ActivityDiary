@@ -110,4 +110,10 @@ public class PreferenceUtil {
         SharedPreferences pref = context.getSharedPreferences(PREFERENCE_NAME, 0);
         return pref.getString(KEY_USER_TOKEN, null);
     }
+
+    // 获取userName
+    public static String username(Context context) {
+        SharedPreferences pref = context.getSharedPreferences(PREFERENCE_NAME, 0);
+        return pref.getString(KEY_USER_NAME, null);
+    }
 }

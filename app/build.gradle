@@ -164,6 +164,13 @@ dependencies {
 
     implementation 'com.google.code.gson:gson:2.9.0'
 
+    // javaWebSocket
+    implementation 'org.java-websocket:Java-WebSocket:1.5.1'
+  
+    // fastJson
+    implementation 'com.alibaba:fastjson:1.1.71.android'
+
+
     //跨界面通信框架
     implementation 'org.greenrobot:eventbus:3.3.1'
 

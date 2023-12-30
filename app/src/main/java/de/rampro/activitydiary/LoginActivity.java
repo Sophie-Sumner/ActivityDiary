@@ -31,6 +31,8 @@ public class LoginActivity extends AppCompatActivity {
     private EditText pwdView;
     private Button loginButton;
     private Button signUpButton;
+    private String email;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +52,7 @@ public class LoginActivity extends AppCompatActivity {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        String email = emailView.getText().toString();
+                        email = emailView.getText().toString();
                         String pwd = pwdView.getText().toString();
 
                         if(StringUtils.isBlank(email) || StringUtils.isEmpty(pwd)){
@@ -115,7 +117,12 @@ public class LoginActivity extends AppCompatActivity {
 
                 //跳转到首页,销毁自己
                 MyActivityManager.getInstance().finishAll();
-                startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                //startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                String username = PreferenceUtil.username(ActivityDiaryApplication.getAppContext());
+                Intent intent_main = new Intent(LoginActivity.this, CommActivity.class);
+                intent_main.putExtra("userName", username);
+                startActivity(intent_main);
+
             }
             //登录失败
             @Override

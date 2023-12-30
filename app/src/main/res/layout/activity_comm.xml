@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <!-- 上半部分：展示聊天内容，蓝色背景 -->
+    <LinearLayout
+        android:id="@+id/chatDisplayLayout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="20dp"
+        android:background="#3498db"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/inputLayout"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <!-- 具体聊天内容 -->
+        <TextView
+            android:id="@+id/tv_msg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:textColor="#ffffff"
+            android:textSize="18sp"
+            android:scrollbars="vertical"
+            android:maxLines="10"
+            android:scrollbarStyle="insideInset"
+            android:background="#3498db"
+            android:padding="10dp"
+            android:layout_weight="1"
+            android:scrollbarThumbVertical="@android:color/darker_gray"
+            android:scrollbarTrackVertical="@android:color/transparent"
+            android:textIsSelectable="true" />
+            <!--android:movementMethod="scrolling" -->
+
+    </LinearLayout>
+
+    <!-- 下半部分：输入聊天信息、发送者和发送按钮 -->
+    <LinearLayout
+        android:id="@+id/inputLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#FFFFFF"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/chatDisplayLayout">
+
+        <!-- 输入聊天信息 -->
+        <EditText
+            android:id="@+id/et_msg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:hint="Type your message..."
+            android:background="#e0e0e0"
+            android:padding="10dp" />
+
+        <!-- 输入信息发送者 -->
+        <EditText
+            android:id="@+id/et_toUser"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:hint="请输入接收方的name(如果是群发不用输入)"
+            android:background="#e0e0e0"
+            android:padding="10dp" />
+
+        <!-- 发送按钮 -->
+        <Button
+            android:id="@+id/btn_sendMsg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:background="#3498db"
+            android:text="Send"
+            android:textColor="#ffffff"
+            android:textSize="18sp"
+            android:onClick="sendMsg" />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
