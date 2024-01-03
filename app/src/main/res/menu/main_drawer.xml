@@ -48,6 +48,10 @@
             android:id="@+id/nav_activity_manager"
             android:icon="@drawable/ic_activities"
             android:title="@string/nav_activity_manager" />
+        <item
+            android:id="@+id/activity_chat"
+            android:icon="@drawable/ic_activities"
+            android:title="@string/activity_chat" />
     </group>
     <group
         android:id="@+id/nav_group_settings"

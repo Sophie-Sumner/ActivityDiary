@@ -67,6 +67,7 @@
     <string name="nav_show_deleted">Show Deleted</string>
     <string name="nav_hide_deleted">Hide Deleted</string>
     <string name="nav_activity_manager">Edit Activities</string>
+    <string name="activity_chat" translatable="false">Chat</string>
 
     <string name="nav_settings">Settings</string>
     <string name="nav_about">About</string>

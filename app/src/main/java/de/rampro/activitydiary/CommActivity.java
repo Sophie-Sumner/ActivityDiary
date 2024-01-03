@@ -43,6 +43,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 
 import de.rampro.activitydiary.model.MessageData;
+import de.rampro.activitydiary.ui.main.MainActivity;
 
 /*
 *
@@ -53,7 +54,7 @@ public class CommActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
 
    // private String url = "ws://169.254.52.119:8080/websocket/";
-    private String url = "ws://192.168.1.111:9090/websocket/";
+    private String url = "ws://10.0.2.2:9090/websocket/";
 
     private TextView tv_msg;
     private EditText et_msg, et_toUser;
@@ -115,6 +116,36 @@ public class CommActivity extends AppCompatActivity {
         Log.i(TAG, "sendMsg: 发送消息" + JSON.toJSONString(messageData));
     }
 
+    @Override
+    public void onBackPressed() {
+        // 解除EventBus注册
+        EventBus.getDefault().unregister(this);
+
+        // 关闭WebSocket连接
+        if (myWebSocketClient != null && myWebSocketClient.isOpen()) {
+            try {
+                myWebSocketClient.closeBlocking();
+                Log.i(TAG, "onBackPressed: 断开服务器成功");
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
+        // 手动调用页面跳转
+        navigateToPreviousActivity();
+
+        // 调用父类的onBackPressed方法，以确保正常的返回操作
+        super.onBackPressed();
+    }
+
+    private void navigateToPreviousActivity() {
+        // 在这里添加你的页面跳转逻辑
+        // 例如，可以使用Intent启动上一个Activity
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+        // 结束当前Activity
+        finish();
+    }
 
     /*
      *

@@ -117,11 +117,11 @@ public class LoginActivity extends AppCompatActivity {
 
                 //跳转到首页,销毁自己
                 MyActivityManager.getInstance().finishAll();
-                //startActivity(new Intent(LoginActivity.this, MainActivity.class));
-                String username = PreferenceUtil.username(ActivityDiaryApplication.getAppContext());
-                Intent intent_main = new Intent(LoginActivity.this, CommActivity.class);
-                intent_main.putExtra("userName", username);
-                startActivity(intent_main);
+                startActivity(new Intent(LoginActivity.this, MainActivity.class));
+//                String username = PreferenceUtil.username(ActivityDiaryApplication.getAppContext());
+//                Intent intent_main = new Intent(LoginActivity.this, CommActivity.class);
+//                intent_main.putExtra("userName", username);
+//                startActivity(intent_main);
 
             }
             //登录失败

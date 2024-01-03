@@ -31,12 +31,15 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
+import de.rampro.activitydiary.ActivityDiaryApplication;
+import de.rampro.activitydiary.CommActivity;
 import de.rampro.activitydiary.R;
 import de.rampro.activitydiary.ui.history.HistoryActivity;
 import de.rampro.activitydiary.ui.location.MapActivity;
 import de.rampro.activitydiary.ui.main.MainActivity;
 import de.rampro.activitydiary.ui.settings.SettingsActivity;
 import de.rampro.activitydiary.ui.statistics.StatisticsActivity;
+import de.rampro.activitydiary.util.PreferenceUtil;
 
 /*
  * MainActivity to show most of the UI, based on switching the fragements
@@ -118,6 +121,11 @@ public class BaseActivity extends AppCompatActivity {
                         Intent intentsettings = new Intent(BaseActivity.this, SettingsActivity.class);
                         startActivity(intentsettings);
                         break;
+                    case R.id.activity_chat:
+                        String username = PreferenceUtil.username(ActivityDiaryApplication.getAppContext());
+                        Intent intent_main = new Intent(BaseActivity.this, CommActivity.class);
+                        intent_main.putExtra("userName", username);
+                        startActivity(intent_main);
                     default:
                         Toast.makeText(BaseActivity.this, menuItem.getTitle() + " is not yet implemented :-(", Toast.LENGTH_LONG).show();
                         break;
