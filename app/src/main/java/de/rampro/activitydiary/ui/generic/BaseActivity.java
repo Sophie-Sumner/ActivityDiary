@@ -126,6 +126,7 @@ public class BaseActivity extends AppCompatActivity {
                         Intent intent_main = new Intent(BaseActivity.this, CommActivity.class);
                         intent_main.putExtra("userName", username);
                         startActivity(intent_main);
+                        break;
                     default:
                         Toast.makeText(BaseActivity.this, menuItem.getTitle() + " is not yet implemented :-(", Toast.LENGTH_LONG).show();
                         break;

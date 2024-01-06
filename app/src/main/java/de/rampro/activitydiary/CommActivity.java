@@ -42,6 +42,8 @@ import org.java_websocket.handshake.ServerHandshake;
 import java.net.URI;
 import java.net.URISyntaxException;
 
+import java.util.Date;
+
 import de.rampro.activitydiary.model.MessageData;
 import de.rampro.activitydiary.ui.main.MainActivity;
 
@@ -54,7 +56,7 @@ public class CommActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
 
    // private String url = "ws://169.254.52.119:8080/websocket/";
-    private String url = "ws://10.0.2.2:9090/websocket/";
+    private String url = "ws://192.168.1.104:9090/websocket/";
 
     private TextView tv_msg;
     private EditText et_msg, et_toUser;
@@ -116,36 +118,9 @@ public class CommActivity extends AppCompatActivity {
         Log.i(TAG, "sendMsg: 发送消息" + JSON.toJSONString(messageData));
     }
 
-    @Override
-    public void onBackPressed() {
-        // 解除EventBus注册
-        EventBus.getDefault().unregister(this);
 
-        // 关闭WebSocket连接
-        if (myWebSocketClient != null && myWebSocketClient.isOpen()) {
-            try {
-                myWebSocketClient.closeBlocking();
-                Log.i(TAG, "onBackPressed: 断开服务器成功");
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
 
-        // 手动调用页面跳转
-        navigateToPreviousActivity();
 
-        // 调用父类的onBackPressed方法，以确保正常的返回操作
-        super.onBackPressed();
-    }
-
-    private void navigateToPreviousActivity() {
-        // 在这里添加你的页面跳转逻辑
-        // 例如，可以使用Intent启动上一个Activity
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
-        // 结束当前Activity
-        finish();
-    }
 
     /*
      *
@@ -207,6 +182,7 @@ public class CommActivity extends AppCompatActivity {
          * */
         @Override
         public void onOpen(ServerHandshake serverHandshake) {
+            addTextView(toHtmlString(new Date().toString(), "#FFFFFF"));
             addTextView(toHtmlString("您已进入聊天室", "#FFFFFF"));
             Log.i(TAG, "onOpen: 打开webSocket连接");
         }
@@ -253,6 +229,9 @@ public class CommActivity extends AppCompatActivity {
     * */
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void updateMsgView(MessageData messageData){
+        Date time = messageData.getTime();
+        System.out.println("time"+time);
+        addTextView(toHtmlString(messageData.getTime().toString(), "#0000FF"));
         addTextView(toHtmlString(messageData.getFromUserId(), "#0000FF"));
         addTextView(toHtmlString(messageData.getMsgData(), "#000000"));
     }
@@ -271,13 +250,24 @@ public class CommActivity extends AppCompatActivity {
         super.onDestroy();
         // 解除EventBus注册
         EventBus.getDefault().unregister(this);
-        try {
-            myWebSocketClient.closeBlocking();
-            Log.i(TAG, "run: 断开服务器成功");
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+
+        // 在一个新的线程中关闭WebSocket
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                if (myWebSocketClient != null && myWebSocketClient.isOpen()) {
+                    try {
+                        myWebSocketClient.closeBlocking();
+                        Log.i(TAG, "WebSocket Closed Successfully");
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                        Log.e(TAG, "Error closing WebSocket: " + e.getMessage());
+                    }
+                }
+            }
+        }).start();
     }
+
 
 }
 

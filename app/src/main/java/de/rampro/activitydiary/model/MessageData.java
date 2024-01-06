@@ -1,5 +1,7 @@
 package de.rampro.activitydiary.model;
 
+import java.util.Date;
+
 public class MessageData {
 
     private int msgType; // 消息类型 私聊、群发
@@ -9,6 +11,8 @@ public class MessageData {
     private String toUserId; // 接收者ID
 
     private String msgData; // 数据
+
+    private Date time; //消息当前时间
 
     public MessageData() {
     }
@@ -43,6 +47,14 @@ public class MessageData {
 
     public void setMsgData(String msgData) {
         this.msgData = msgData;
+    }
+
+    public Date getTime() {
+        return time;
+    }
+
+    public void setTime(Date time) {
+        this.time = time;
     }
 }
 

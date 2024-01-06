@@ -50,7 +50,7 @@
             android:title="@string/nav_activity_manager" />
         <item
             android:id="@+id/activity_chat"
-            android:icon="@drawable/ic_activities"
+            android:icon="@drawable/ic_chat"
             android:title="@string/activity_chat" />
     </group>
     <group
